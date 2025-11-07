@@ -4,6 +4,7 @@ import torch.nn as nn
 import numpy as np
 import cv2
 import io
+import os
 
 # Define the same CNN model architecture (must match training)
 '''class ECG1DCNN(nn.Module):
@@ -30,6 +31,7 @@ import io
         out = self.fc1(out)
         return out
 '''
+
 class ECG1DCNN(nn.Module):
     def __init__(self, num_classes=5):
         super(ECG1DCNN, self).__init__()
@@ -37,7 +39,7 @@ class ECG1DCNN(nn.Module):
         self.bn1 = nn.BatchNorm1d(32)
         self.conv2 = nn.Conv1d(32, 64, kernel_size=5, stride=1, padding=2)
         self.bn2 = nn.BatchNorm1d(64)
-        self.conv3 = nn.Conv1d(64, 128, kernel_size=5, stride=1, padding=2)
+        self.conv3 = nn.Conv1d(64, 128, kernel_size=3, stride=1, padding=1)  # ✅ fixed kernel_size=3
         self.bn3 = nn.BatchNorm1d(128)
         self.fc1 = nn.Linear(128 * 45, 256)
         self.fc2 = nn.Linear(256, num_classes)
@@ -54,8 +56,10 @@ class ECG1DCNN(nn.Module):
         return x
 
 # Load trained model (only weights, not training data)
-MODEL_PATH = "processed/ecg_cnn_model.pth"
+MODEL_PATH = "../processed/ecg_cnn_model.pth"
 device = torch.device("cpu")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, "processed", "ecg_cnn_model.pth")
 
 model = ECG1DCNN(num_classes=5)
 model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
