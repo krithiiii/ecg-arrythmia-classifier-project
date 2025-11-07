@@ -1,7 +1,7 @@
 # Ignore data and model weights
 /data/
- /processed/
-*.pth
+# /processed/
+#*.pth
 *.npz
 
 # Python cache
