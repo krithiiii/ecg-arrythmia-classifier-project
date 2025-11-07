@@ -47,7 +47,7 @@ It uses a **1D Convolutional Neural Network (CNN)** trained on the **MIT-BIH Arr
 ## 🧩 Architecture Overview
 
 ```mermaid
-graph TD;
+graph TD
     A[MIT-BIH ECG Dataset] --> B[Preprocessing & Segmentation]
     B --> C[1D CNN Model (PyTorch)]
     C --> D[Model Training & Evaluation]
