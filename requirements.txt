@@ -1,0 +1,17 @@
+# Core dependencies
+streamlit
+numpy
+pandas
+scikit-learn
+matplotlib
+opencv-python-headless
+
+# Deep learning
+torch
+torchvision
+torchaudio
+
+# Optional: if you used seaborn or tqdm, include them
+tqdm
+seaborn
+
